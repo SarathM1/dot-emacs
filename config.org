@@ -1,0 +1,342 @@
+# -*- mode: org; coding: utf-8; -*-
+# Source:     https://github.com/novoid/dot-emacs
+# License:    This file is licensed under the GPL v3.
+#+TODO: ACTIVE | DISABLED
+#+STARTUP: indent
+
+* General settings
+
+  inhibit the startup screen
+  #+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-screen t)
+  #+END_SRC
+
+** Package
+Configure the package manager of my GNU/Emacs.
+#+BEGIN_SRC emacs-lisp
+(require 'package)
+(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                    (not (gnutls-available-p))))
+       (proto (if no-ssl "http" "https")))
+  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
+  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+  (when (< emacs-major-version 24)
+    ;; For important compatibility libraries like cl-lib
+    (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
+(package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(eval-when-compile
+  (require 'use-package))
+#+END_SRC
+* DISABLED Server mode
+
+  Start Emacs as a server process: new files can be visited via
+  =emacsclient= (instead of parallel =emacs= instances). Therefore, I
+  don't have to run multiple instances (which occupies RAM storage) and
+  I am able to open new files instantly.
+  
+  #+BEGIN_SRC emacs-lisp
+  (server-start)
+  #+END_SRC
+* Styling
+Show current column:
+
+#+BEGIN_SRC emacs-lisp
+(setq column-number-mode t)
+#+END_SRC
+
+Cursor settings:
+#+BEGIN_SRC emacs-lisp
+;; Prevent the cursor from blinking
+(blink-cursor-mode 0)
+(set-cursor-color "IndianRed")
+#+END_SRC
+
+Flat mode-line styling:
+2014-05-24: from http://www.reddit.com/r/emacs/comments/23l9oi/flat_modeline/
+#+BEGIN_SRC emacs-lisp
+(set-face-attribute 'mode-line nil :box nil)
+(set-face-attribute 'mode-line-inactive nil :box nil)
+#+END_SRC
+
+My favorite dark themes: wombat, misterioso, zenburn, material
+#+BEGIN_SRC emacs-lisp
+(load-theme 'wombat t) ;; dark theme
+#+END_SRC
+** Font
+ #+BEGIN_SRC emacs-lisp
+(set-face-attribute 'default nil
+		    :family "Source Code Pro"
+		    :height 130
+		    :weight 'normal
+:width 'normal) 
+ #+END_SRC
+* Flycheck
+
+«[[http://www.flycheck.org/][Flycheck]] is a modern on-the-fly syntax checking extension for GNU
+Emacs, intended as replacement for the older Flymake extension which
+is part of GNU Emacs.»
+
+- http://www.flycheck.org/en/latest/guide/quickstart.html
+- 2016-11-05: converted to use-package according to http://www.flycheck.org/en/latest/user/installation.html#use-package
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck
+  :ensure t
+  :init
+  (global-flycheck-mode)
+  :config
+  (setq flycheck-flake8-maximum-line-length 200); http://www.flycheck.org/manual/latest/Configuring-checkers.html#Configuring-checkers
+  )
+#+END_SRC
+* GnuPlot
+
+«[[http://www.gnuplot.info/][Gnuplot]] is a portable command-line driven graphing utility for Linux,
+OS/2, MS Windows, OSX, VMS, and many other platforms.»
+
+Also very handy when [[http://orgmode.org/worg/org-tutorials/org-plot.html][visualizing table data within Org-mode]]! (see
+Org-mode/babel configuration)
+
+Example: place the cursor within the table and evaluate
+=org-plot/gnuplot= or use the keyboard shortcut =C-c " g=
+
+#+plot: ind:1 deps:(2) type:2d with:"impulse lw 6" set:"yrange [0:]" title "Test-Plot"
+| When             | How many |
+|------------------+----------|
+| [2016-11-17 Thu] |        3 |
+| [2016-11-23 Wed] |        4 |
+| [2016-12-10 Sat] |        1 |
+
+#+BEGIN_SRC emacs-lisp
+;; gnuplot
+  (use-package gnuplot
+    :ensure t
+    :defer 10)
+#+END_SRC
+
+* Org-mode
+
+** Styling
+
+Omit the headline-asterisks except the last one:
+#+BEGIN_SRC emacs-lisp
+  (setq org-hide-leading-stars t)
+#+END_SRC
+
+syntax highlighting in source code:
+: from Eric Schulte <eric.schulte@gmx.com>
+:      Newsgroups: gmane.emacs.orgmode
+:      Subject: Re: org mode in press
+:      Date: Sat, 28 Jan 2012 10:06:08 -0700
+:      Message-ID: <87ipjv92pr.fsf@gmx.com>
+- 2014-04-04: set to nil in order to avoid performance issues!
+- 2015-12-26: set to t to test again these days
+  - seems to be OK now
+#+BEGIN_SRC emacs-lisp
+(setq org-src-fontify-natively t)
+#+END_SRC
+
+automatically change status of a heading to =DONE= when all children are done:
+- http://orgmode.org/org.html#Breaking-down-tasks
+- deactivated because WAITING got changed to TODO
+#+BEGIN_SRC emacs-lisp
+(defun org-summary-todo (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  (let (org-log-done org-log-states)   ; turn off logging
+    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+#+END_SRC
+
+Set the width of inline images:
+#+BEGIN_SRC emacs-lisp
+  (setq org-image-actual-width '(400))
+#+END_SRC
+
+Nice looking bullets for headings:
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :ensure t
+    :config ;; executed after loading package
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  )
+#+END_SRC
+** General key bindings
+
+Standard key bindings:
+#+BEGIN_SRC emacs-lisp
+  (global-set-key "\C-cl" 'org-store-link)
+  (global-set-key "\C-ca" 'org-agenda)
+#+END_SRC
+** org-mode-hook
+
+Opening image files with external viewer:
+- http://stackoverflow.com/questions/3973896/emacs-org-mode-file-viewer-associations
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook
+	    '(lambda ()
+	       (setq org-file-apps
+		     (append '(
+			       ("\\.png\\'" . default)
+			       ("\\.jpg\\'" . default)
+			       ("\\.jpeg\\'" . default)
+			       ("\\.tiff\\'" . default)
+			       ("\\.docx\\'" . default)
+			       ("\\.xlsx\\'" . default)
+			       ("\\.pptx\\'" . default)
+			       ) org-file-apps ))))
+#+END_SRC
+** DISABLED org-mind-map
+
+I found [[https://github.com/theodorewiles/org-mind-map][org-mind-map]] via an [[http://irreal.org/blog/?p=6561][article on irreal]].
+
+At the moment, I am not planning on using it intensively. It is maybe
+a cool method to visualize the structure of some Org-mode files of
+mine for demonstration purposes for novice or non-Org-users.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-mind-map
+    ;;:ensure t
+    :defer 15
+    :load-path "~/.emacs.d/contrib/org-mind-map/"
+    :config ;; executed after loading package
+  )
+#+END_SRC
+
+2017-10-14: Unfortunately, I do have [[https://github.com/theodorewiles/org-mind-map/issues/13][issues with this tool so that I
+had to disable it]]. Maybe I'd give it another try in a couple of months
+or so.
+* Packages
+** nyan-mode - Nyan Cat instead of scroll bar
+
+«[[https://github.com/TeMPOraL/nyan-mode/][Nyan Mode]] is an analog indicator of your position in the buffer. The
+Cat should go from left to right in your mode-line, as you move your
+point from 0% to 100%.»
+
+via https://www.reddit.com/r/emacs/comments/3xoins/totally_useless_and_utterly_awesome_packages/
+
+This seems to be a bit silly but it is actually quite useful for me. I
+usually do work with a ninety degree tilted monitor where horizontal
+space is limited but vertical space not. By disabling the scroll bar
+for Emacs (see further above) and using the Nyan cat as a replacement
+for it, I can save precious horizontal space.
+
+#+BEGIN_SRC emacs-lisp
+(use-package nyan-mode
+  :ensure t ;; install package if not found OR: (setq use-package-always-ensure t)
+  :config
+  (nyan-mode t)
+)
+#+END_SRC
+** anzu-mode - showing number of matches when searching
+
+«[[https://github.com/syohex/emacs-anzu][anzu.el]] is an Emacs port of anzu.vim. anzu.el provides a minor mode
+which displays current match and total matches information in the
+mode-line in various search modes.»
+
+I love this visualization.
+
+#+BEGIN_SRC emacs-lisp
+(use-package anzu
+  :ensure t ;; install package if not found OR: (setq use-package-always-ensure t)
+  :diminish anzu-mode
+  :config
+  (global-anzu-mode +1)
+)
+#+END_SRC
+** smart-mode-line - abbreviating paths,
+
+«[[https://github.com/Malabarba/smart-mode-line][Smart Mode Line]] is a sexy mode-line for Emacs. It aims to be easy to
+read from small to large monitors by using colors, a prefix feature,
+and smart truncation.»
+
+#+BEGIN_SRC emacs-lisp
+(use-package smart-mode-line
+  :ensure t ;; install package if not found OR: (setq use-package-always-ensure t)
+  :config
+  (setq sml/no-confirm-load-theme t)
+  (setq sml/theme 'respectful) ;; select theme: light, dark, respectful
+  ;; hiding minor modes from mode line (don't forget the leading space)
+  (setq rm-blacklist '(" Fill" " Ind" " MRev" " hl-p" " Guide" " OrgStruct" " ,"))
+  ;; replacing path names with abbrevations:
+  (add-to-list 'sml/replacer-regexp-list '("^~/hosts/all/config/emacs.d" ":EMACS:") t)
+  (add-to-list 'sml/replacer-regexp-list '("^~/org" ":ORG:") t)
+  (add-to-list 'sml/replacer-regexp-list '("^~/frankie/src/lazyblorg" ":LB:") t)
+  (add-to-list 'sml/replacer-regexp-list '("^C:/Users/karl.voit/org" ":ORG:") t)
+  (add-to-list 'sml/replacer-regexp-list '("^~/frankie/" "~/") t)
+  (smart-mode-line-enable)
+)
+#+END_SRC
+** display-time-mode - Enable the display of time in the modeline
+
+http://www.emacswiki.org/emacs/DisplayTime
+- via: http://emacs.stackexchange.com/questions/13227/easy-way-to-give-the-time-its-own-face-in-modeline
+
+#+BEGIN_SRC emacs-lisp
+(setq display-time-string-forms
+      '((propertize (format-time-string "%A %F %R" now) 'face 'bold)))
+(display-time-mode t)
+#+END_SRC
+** swiper - ivy-enhanced alternative to isearch
+
+#+BEGIN_QUOTE
+flexible, simple tools for minibuffer completion in Emacs
+
+[[https://github.com/abo-abo/swiper][This repository]] contains:
+
+1. *Ivy*, a generic completion mechanism for Emacs.
+2. *Counsel*, a collection of Ivy-enhanced versions of common Emacs commands.
+3. *Swiper*, an Ivy-enhanced alternative to isearch.
+#+END_QUOTE
+
+- http://pragmaticemacs.com/emacs/dont-search-swipe/
+- http://irreal.org/blog/?p=5340 -> swiper depends on ivy; ivy is much better than ido-mode/smex; example config
+
+#+BEGIN_SRC emacs-lisp
+(use-package ivy :demand
+      :config
+      (setq ivy-use-virtual-buffers t
+            ivy-count-format "%d/%d "))
+
+(use-package swiper
+  :ensure t
+  ;;:if (my-system-type-is-windows)
+  :config
+
+  (setq ivy-display-style 'fancy) ;; fancy highlighting
+  
+  ;(bind-key "C-s" 'swiper)
+  (global-set-key "\C-s" 'swiper)
+)
+#+END_SRC
+** neotree → F9
+
+[[https://github.com/jaypei/emacs-neotree][NeoTree]] offers a file tree side-panel like NerdTree for Vim.
+
+installed on 2015-03-22
+
+#+BEGIN_SRC emacs-lisp
+(use-package neotree
+  :ensure t
+  :defer 20
+  :config ;; executed after loading package
+  (global-set-key [f9] 'neotree-toggle)
+)
+#+END_SRC
+** DISABLED csv-mode
+
+Manipulating CSV files.
+
+#+BEGIN_SRC emacs-lisp
+(use-package csv-mode
+  :ensure t
+  :defer 10
+  :config
+  (add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
+  (autoload 'csv-mode "csv-mode"
+    "Major mode for editing comma-separated value files." t)
+)
+#+END_SRC
