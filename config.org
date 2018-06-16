@@ -210,10 +210,33 @@ had to disable it]]. Maybe I'd give it another try in a couple of months
 or so.
 * Packages
 ** Evil mode
-Evil mode
 
 [[https://github.com/cofi/evil-leader][evil-leader]]: easly configure key bindings based on leader key
 [[https://github.com/timcharper/evil-surround][evil-surround]]: same functionality as surround.vim
+
+Evil-leader keyboard bindings
+#+BEGIN_SRC emacs-lisp
+(defun my-config-evil-leader ()
+  "Configure evil leader mode."
+  (evil-leader/set-leader ",")
+  (evil-leader/set-key
+    ","  'other-window
+    "."  'mode-line-other-buffer
+    ":"  'eval-expression
+    ;; "b"  'helm-mini             ;; Switch to another buffer
+    ;; "B"  'magit-blame-toggle
+    "c"  'comment-dwim
+    "d"  'kill-this-buffer
+    ;; "f"  'helm-imenu            ;; Jump to function in buffer
+    ;; "g"  'magit-status
+    ;; "p"  'helm-show-kill-ring
+    ;; "s"  'ag-project            ;; Ag search from project's root
+    ;; "y" 'yank-to-x-clipboard
+    "o"  'delete-other-windows  ;; C-w o
+    ))
+#+END_SRC
+
+Evil mode
 #+BEGIN_SRC emacs-lisp
 (use-package evil
   :ensure t
@@ -222,7 +245,8 @@ Evil mode
   (use-package evil-leader
     :ensure t
     :config
-    (global-evil-leader-mode))
+    (global-evil-leader-mode)
+    (my-config-evil-leader))
 
   (use-package evil-surround
     :ensure t
@@ -332,14 +356,11 @@ flexible, simple tools for minibuffer completion in Emacs
 
 (use-package swiper
   :ensure t
-  ;;:if (my-system-type-is-windows)
+  :bind ("C-S-f" . swiper)
   :config
-
   (setq ivy-display-style 'fancy) ;; fancy highlighting
-  
-  ;(bind-key "C-s" 'swiper)
-  (global-set-key "\C-s" 'swiper)
-)
+  )
+
 #+END_SRC
 ** neotree → F9
 
@@ -368,4 +389,10 @@ Manipulating CSV files.
   (autoload 'csv-mode "csv-mode"
     "Major mode for editing comma-separated value files." t)
 )
+#+END_SRC
+* Key bindings
+
+Save buffer with ctrl-s
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-s") 'save-buffer)
 #+END_SRC
