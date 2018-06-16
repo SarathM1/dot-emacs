@@ -228,7 +228,7 @@ Evil-leader keyboard bindings
     "c"  'comment-dwim
     "d"  'kill-this-buffer
     ;; "f"  'helm-imenu            ;; Jump to function in buffer
-    ;; "g"  'magit-status
+    "g"  'magit-status
     ;; "p"  'helm-show-kill-ring
     ;; "s"  'ag-project            ;; Ag search from project's root
     ;; "y" 'yank-to-x-clipboard
@@ -388,6 +388,14 @@ Manipulating CSV files.
   (add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
   (autoload 'csv-mode "csv-mode"
     "Major mode for editing comma-separated value files." t)
+)
+#+END_SRC
+** magit
+Magit for git revision control
+#+BEGIN_SRC emacs-lisp
+(use-package magit
+  :ensure t
+  :commands magit-get-top-dir
 )
 #+END_SRC
 * Key bindings
