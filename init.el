@@ -1,3 +1,6 @@
+;;; init.el --- My emacs settings
+;;; Commentary:
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Filename:      $HOME/.emacs.d/init.el
 ;; Time-stamp:    <2017-09-22 13:12:00 karl.voit>
@@ -20,6 +23,7 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
+;;; Code:
 (package-initialize)
 
 (defvar my-init-el-start-time (current-time) "Time when init.el was started")
