@@ -5,12 +5,16 @@
 #+STARTUP: indent
 
 * General settings
+inhibit the startup screen
+#+BEGIN_SRC emacs-lisp :tangle no
+(setq inhibit-startup-screen t)
+#+END_SRC
 
-  inhibit the startup screen
-  #+BEGIN_SRC emacs-lisp :tangle no
-  (setq inhibit-startup-screen t)
-  #+END_SRC
-
+** Default Indentation
+#+BEGIN_SRC emacs-lisp
+(setq-default tab-width 4)
+(setq-default indent-tabs-mode nil)
+#+END_SRC
 ** Package Manager
 Configure the package manager of my GNU/Emacs.
 #+BEGIN_SRC emacs-lisp
@@ -118,7 +122,6 @@ Example: place the cursor within the table and evaluate
 #+END_SRC
 
 * Org-mode
-
 ** Styling
 
 Omit the headline-asterisks except the last one:
