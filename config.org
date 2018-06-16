@@ -45,7 +45,6 @@ Configure the package manager of my GNU/Emacs.
   #+END_SRC
 * Styling
 Show current column:
-
 #+BEGIN_SRC emacs-lisp
 (setq column-number-mode t)
 #+END_SRC
@@ -210,6 +209,31 @@ mine for demonstration purposes for novice or non-Org-users.
 had to disable it]]. Maybe I'd give it another try in a couple of months
 or so.
 * Packages
+** Evil mode
+Evil mode
+
+[[https://github.com/cofi/evil-leader][evil-leader]]: easly configure key bindings based on leader key
+[[https://github.com/timcharper/evil-surround][evil-surround]]: same functionality as surround.vim
+#+BEGIN_SRC emacs-lisp
+(use-package evil
+  :ensure t
+  :config
+  (evil-mode 1)
+  (use-package evil-leader
+    :ensure t
+    :config
+    (global-evil-leader-mode))
+
+  (use-package evil-surround
+    :ensure t
+    :config
+    (global-evil-surround-mode))
+
+  (use-package evil-indent-textobject
+    :ensure t)
+)
+#+END_SRC
+
 ** nyan-mode - Nyan Cat instead of scroll bar
 
 «[[https://github.com/TeMPOraL/nyan-mode/][Nyan Mode]] is an analog indicator of your position in the buffer. The
@@ -223,6 +247,11 @@ usually do work with a ninety degree tilted monitor where horizontal
 space is limited but vertical space not. By disabling the scroll bar
 for Emacs (see further above) and using the Nyan cat as a replacement
 for it, I can save precious horizontal space.
+
+Disable scroll-bar
+#+BEGIN_SRC emacs-lisp
+(toggle-scroll-bar -1)
+#+END_SRC
 
 #+BEGIN_SRC emacs-lisp
 (use-package nyan-mode
