@@ -224,6 +224,7 @@ Evil-leader keyboard bindings
     ;; "s"  'ag-project            ;; Ag search from project's root
     ;; "y" 'yank-to-x-clipboard
     "o"  'delete-other-windows  ;; C-w o
+    "m"  'my-org-publish-buffer
     ))
 #+END_SRC
 
