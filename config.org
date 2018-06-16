@@ -10,6 +10,11 @@ inhibit the startup screen
 (setq inhibit-startup-screen t)
 #+END_SRC
 
+disable toolbar
+#+BEGIN_SRC emacs-lisp
+(tool-bar-mode -1)
+#+END_SRC
+
 ** Default Indentation
 #+BEGIN_SRC emacs-lisp
 (setq-default tab-width 4)
@@ -239,6 +244,10 @@ Publishing project
                         (file-name-as-directory (expand-file-name dest))
                         (file-name-sans-extension rel)
                         ".html"))))
+#+END_SRC
+** Agenda files
+#+BEGIN_SRC emacs-lisp
+(setq org-agenda-files '("~/Documents/orgMode"))
 #+END_SRC
 * Packages
 ** Evil mode
