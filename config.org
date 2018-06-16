@@ -494,6 +494,17 @@ Modular in-buffer completion framework for Emacs
   (set-face-attribute
    'company-tooltip-common-selection nil :foreground "black" :weight 'bold))
 #+END_SRC
+** dashboard
+#+BEGIN_SRC emacs-lisp
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook)
+    ;; Set the title
+    (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
+    ;; Set the banner
+    (setq dashboard-startup-banner 3))
+#+END_SRC
 * Key bindings
 
 Save buffer with ctrl-s
