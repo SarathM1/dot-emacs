@@ -7,11 +7,11 @@
 * General settings
 
   inhibit the startup screen
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp :tangle no
   (setq inhibit-startup-screen t)
   #+END_SRC
 
-** Package
+** Package Manager
 Configure the package manager of my GNU/Emacs.
 #+BEGIN_SRC emacs-lisp
 (require 'package)
@@ -123,18 +123,10 @@ Example: place the cursor within the table and evaluate
 
 Omit the headline-asterisks except the last one:
 #+BEGIN_SRC emacs-lisp
-  (setq org-hide-leading-stars t)
+(setq org-hide-leading-stars t)
 #+END_SRC
 
 syntax highlighting in source code:
-: from Eric Schulte <eric.schulte@gmx.com>
-:      Newsgroups: gmane.emacs.orgmode
-:      Subject: Re: org mode in press
-:      Date: Sat, 28 Jan 2012 10:06:08 -0700
-:      Message-ID: <87ipjv92pr.fsf@gmx.com>
-- 2014-04-04: set to nil in order to avoid performance issues!
-- 2015-12-26: set to t to test again these days
-  - seems to be OK now
 #+BEGIN_SRC emacs-lisp
 (setq org-src-fontify-natively t)
 #+END_SRC
@@ -152,16 +144,16 @@ automatically change status of a heading to =DONE= when all children are done:
 
 Set the width of inline images:
 #+BEGIN_SRC emacs-lisp
-  (setq org-image-actual-width '(400))
+(setq org-image-actual-width '(400))
 #+END_SRC
 
 Nice looking bullets for headings:
 #+BEGIN_SRC emacs-lisp
-  (use-package org-bullets
+(use-package org-bullets
     :ensure t
     :config ;; executed after loading package
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-  )
+)
 #+END_SRC
 ** General key bindings
 
