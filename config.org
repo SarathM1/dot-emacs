@@ -200,6 +200,14 @@ mine for demonstration purposes for novice or non-Org-users.
 had to disable it]]. Maybe I'd give it another try in a couple of months
 or so.
 ** Export plugins
+ox-pandoc
+#+BEGIN_SRC emacs-lisp
+;; Pandoc
+(use-package ox-pandoc
+  :defer 1
+  :ensure t)
+#+END_SRC
+
 ox-twbs; orgMode to twitter bootstrap
 #+BEGIN_SRC emacs-lisp
 ;~~~~~~~~~~~~~~~~~~~~
