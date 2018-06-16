@@ -122,17 +122,13 @@ Example: place the cursor within the table and evaluate
 #+END_SRC
 
 * Org-mode
-** Styling
-
-Omit the headline-asterisks except the last one:
+** Basic styling
 #+BEGIN_SRC emacs-lisp
-(setq org-hide-leading-stars t)
+(setq org-startup-indented t
+      org-hide-emphasis-markers t
+      org-src-fontify-natively t)
 #+END_SRC
-
-syntax highlighting in source code:
-#+BEGIN_SRC emacs-lisp
-(setq org-src-fontify-natively t)
-#+END_SRC
+** More Styling
 
 automatically change status of a heading to =DONE= when all children are done:
 - http://orgmode.org/org.html#Breaking-down-tasks
