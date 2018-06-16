@@ -199,6 +199,39 @@ mine for demonstration purposes for novice or non-Org-users.
 2017-10-14: Unfortunately, I do have [[https://github.com/theodorewiles/org-mind-map/issues/13][issues with this tool so that I
 had to disable it]]. Maybe I'd give it another try in a couple of months
 or so.
+** Export plugins
+ox-twbs; orgMode to twitter bootstrap
+#+BEGIN_SRC emacs-lisp
+;~~~~~~~~~~~~~~~~~~~~
+(use-package ox-twbs
+  :ensure t
+  :init (require 'ox-twbs ))
+#+END_SRC
+
+Publishing project
+#+BEGIN_SRC emacs-lisp
+(setq org-publish-project-alist
+      '(("org-notes"
+         :base-directory "~/Documents/orgMode/"
+         :publishing-directory "~/Documents/orgMode/public_html/"
+         :publishing-function org-twbs-publish-to-html
+         :with-sub-superscript nil
+         )))
+
+(defun my-org-publish-buffer ()
+  (interactive)
+  (save-buffer)
+  (save-excursion (org-publish-current-file))
+  (let* ((proj (org-publish-get-project-from-filename buffer-file-name))
+         (proj-plist (cdr proj))
+         (rel (file-relative-name buffer-file-name
+                                  (plist-get proj-plist :base-directory)))
+         (dest (plist-get proj-plist :publishing-directory)))
+    (browse-url (concat "file://"
+                        (file-name-as-directory (expand-file-name dest))
+                        (file-name-sans-extension rel)
+                        ".html"))))
+#+END_SRC
 * Packages
 ** Evil mode
 
