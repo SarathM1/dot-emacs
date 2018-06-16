@@ -389,6 +389,22 @@ Magit for git revision control
   :commands magit-get-top-dir
 )
 #+END_SRC
+** DISABLED rainbow-delimiters
+[[https://github.com/Fanael/rainbow-delimiters][rainbow-delimiters]]; colour macthing parenthesis
+#+BEGIN_SRC emacs-lisp
+(use-package rainbow-delimiters
+  :ensure t
+  :commands rainbow-delimiters-mode
+  :init
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+#+END_SRC
+** git-gutter-fringe
+#+BEGIN_SRC emacs-lisp
+(use-package git-gutter-fringe
+  :ensure t
+  :diminish git-gutter-mode
+  :config (global-git-gutter-mode))
+#+END_SRC
 * Key bindings
 
 Save buffer with ctrl-s
