@@ -497,6 +497,12 @@ Magit for git revision control
 Modular in-buffer completion framework for Emacs
 [[http://company-mode.github.io/][Reference]]
 
+prevent company from completing on its own when we type Space or dot
+#+BEGIN_SRC emacs-lisp
+(defun company--my-insert-spc() (interactive) (company-abort)(insert-char #10r32))
+(defun company--my-insert-dot() (interactive) (company-abort)(insert-char #10r46))
+#+END_SRC 
+
 #+BEGIN_SRC emacs-lisp
 (use-package company
   :diminish company-mode
@@ -506,7 +512,7 @@ Modular in-buffer completion framework for Emacs
   (setq
    company-echo-delay 0
    company-idle-delay 0.2
-   company-minimum-prefix-length 1
+   company-minimum-prefix-length 3
    company-tooltip-align-annotations t
    company-tooltip-limit 20)
   ;; Default colors are awful - borrowed these from gocode (thanks!):
@@ -522,7 +528,15 @@ Modular in-buffer completion framework for Emacs
   (set-face-attribute
    'company-tooltip-common nil :foreground "darkgreen" :weight 'bold)
   (set-face-attribute
-   'company-tooltip-common-selection nil :foreground "black" :weight 'bold))
+   'company-tooltip-common-selection nil :foreground "black" :weight 'bold)
+  :bind
+  (:map company-active-map
+   ("ESC" . company-abort)
+   ;; prevent company from completing on its own when we type regular characters
+   ("SPC" . company--my-insert-spc)
+   ("."   . company--my-insert-dot)
+   )
+  )
 #+END_SRC
 ** dashboard
 #+BEGIN_SRC emacs-lisp
