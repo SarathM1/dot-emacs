@@ -249,6 +249,18 @@ Publishing project
 #+BEGIN_SRC emacs-lisp
 (setq org-agenda-files '("~/Documents/orgMode"))
 #+END_SRC
+** For embedding image as base64
+#+BEGIN_SRC emacs-lisp :results html :exports both
+(defun tob64 (filename)
+  (base64-encode-string
+   (with-temp-buffer
+     (insert-file-contents filename)
+     (buffer-string))))
+#+END_SRC
+** org-babel settings
+#+BEGIN_SRC emacs-lisp
+(setq org-confirm-babel-evaluate nil)
+#+END_SRC
 * Packages
 ** Evil mode
 
@@ -513,6 +525,16 @@ Modular in-buffer completion framework for Emacs
     (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
     ;; Set the banner
     (setq dashboard-startup-banner 3))
+#+END_SRC
+** htmlize
+#+BEGIN_SRC emacs-lisp
+(use-package htmlize
+  :ensure t
+  :commands (htmlize-buffer
+             htmlize-file
+             htmlize-many-files
+             htmlize-many-files-dired
+             htmlize-region))
 #+END_SRC
 * Key bindings
 
