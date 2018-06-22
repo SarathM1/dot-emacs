@@ -325,7 +325,7 @@ Evil mode
 )
 #+END_SRC
 
-** nyan-mode - Nyan Cat instead of scroll bar
+** DISABLED nyan-mode - Nyan Cat instead of scroll bar
 
 «[[https://github.com/TeMPOraL/nyan-mode/][Nyan Mode]] is an analog indicator of your position in the buffer. The
 Cat should go from left to right in your mode-line, as you move your
