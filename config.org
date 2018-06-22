@@ -262,7 +262,7 @@ within the html file
 
 Now in the org file add image as below; Remove the extra '#'
 
-##+BEGIN_SRC emacs-lisp :results html :exports both
+##+BEGIN_SRC emacs-lisp :results html :exports results
 (format "<img src=\"data:image/png;base64,%s\">"
     (tob64 "~/Pictures/test3.jpg"))
 ##+END_SRC
