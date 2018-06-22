@@ -250,13 +250,22 @@ Publishing project
 (setq org-agenda-files '("~/Documents/orgMode"))
 #+END_SRC
 ** For embedding image as base64
-#+BEGIN_SRC emacs-lisp :results html :exports both
+This function will help in embedding image in base64 format
+within the html file
+#+BEGIN_SRC emacs-lisp
 (defun tob64 (filename)
   (base64-encode-string
    (with-temp-buffer
      (insert-file-contents filename)
      (buffer-string))))
 #+END_SRC
+
+Now in the org file add image as below; Remove the extra '#'
+
+##+BEGIN_SRC emacs-lisp :results html :exports both
+(format "<img src=\"data:image/png;base64,%s\">"
+    (tob64 "~/Pictures/test3.jpg"))
+##+END_SRC
 ** org-babel settings
 #+BEGIN_SRC emacs-lisp
 (setq org-confirm-babel-evaluate nil)
