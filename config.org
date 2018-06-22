@@ -58,11 +58,10 @@ Show current column:
 (setq column-number-mode t)
 #+END_SRC
 
-Cursor settings:
+
+Disable scroll-bar
 #+BEGIN_SRC emacs-lisp
-;; Prevent the cursor from blinking
-(blink-cursor-mode 0)
-(set-cursor-color "IndianRed")
+(toggle-scroll-bar -1)
 #+END_SRC
 
 Flat mode-line styling:
@@ -75,6 +74,13 @@ Flat mode-line styling:
 My favorite dark themes: wombat, misterioso, zenburn, material
 #+BEGIN_SRC emacs-lisp
 (load-theme 'wombat t) ;; dark theme
+#+END_SRC
+
+Cursor settings:
+#+BEGIN_SRC emacs-lisp
+;; Prevent the cursor from blinking
+(blink-cursor-mode 0)
+(set-cursor-color "IndianRed")
 #+END_SRC
 ** Font
  #+BEGIN_SRC emacs-lisp
@@ -333,10 +339,6 @@ space is limited but vertical space not. By disabling the scroll bar
 for Emacs (see further above) and using the Nyan cat as a replacement
 for it, I can save precious horizontal space.
 
-Disable scroll-bar
-#+BEGIN_SRC emacs-lisp
-(toggle-scroll-bar -1)
-#+END_SRC
 
 #+BEGIN_SRC emacs-lisp
 (use-package nyan-mode
