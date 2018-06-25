@@ -690,6 +690,24 @@ Cell +91 9496354518")
     #+END_SRC
 - Aliases will be autocompleted on typing comma
 - To seperate several mail id's use comma.
+*** Password Management
+1. Setup up GPG user id. [[https://kb.iu.edu/d/awio][Reference]]
+2. Setup *pass* password manager. [[https://www.passwordstore.org][Reference]]
+3. Create a new password & insert in *pass* using
+   #+BEGIN_SRC sh
+   pass insert <desctiptive-name>
+   #+END_SRC
+   When prompted for password enter text in format
+   given below
+   #+BEGIN_SRC
+   machine imap.gmail.com login john_doe@gmail.com password "your_password_here"
+   #+END_SRC
+4. Now create a soft-link from this file  (<desctiptive-name>.gpg); to ~/.authinfo.gpg
+   #+BEGIN_SRC bash
+   ln -s ~/.password-store/mail.gpg ~/.authinfo.gpg
+   #+END_SRC
+5. Done
+- To update password use GNU *pass*
 * Key bindings
 
 Save buffer with ctrl-s
