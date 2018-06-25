@@ -680,6 +680,16 @@ Cell +91 9496354518")
   if __name__ == '__main__':                                                    
       mailpasswd() 
 #+END_SRC
+*** Addressbook
+- To use shorthand; Create a file ~/.mailrc and use it to create alias names
+    #+BEGIN_SRC
+    alias sm sarath.m@tataelxsi.co.in
+    alias at anshul.tripathi@tataelxsi.co.in
+    alias apd anjana.p@tataelxsi.co.in
+    alias re robin@tataelxsi.co.in
+    #+END_SRC
+- Aliases will be autocompleted on typing comma
+- To seperate several mail id's use comma.
 * Key bindings
 
 Save buffer with ctrl-s
