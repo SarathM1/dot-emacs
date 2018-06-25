@@ -561,7 +561,7 @@ prevent company from completing on its own when we type Space or dot
              htmlize-many-files-dired
              htmlize-region))
 #+END_SRC
-** DISABLED mu4e
+** DISABLED mu4e & mail settings
 - Dependencies
 	- libtool
 	- automake
