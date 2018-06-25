@@ -80,7 +80,7 @@ My favorite dark themes: wombat, misterioso, zenburn, material
  #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'default nil
 		    :family "Source Code Pro"
-		    :height 130
+		    :height 160
 		    :weight 'normal
 :width 'normal) 
  #+END_SRC
@@ -519,4 +519,15 @@ Modular in-buffer completion framework for Emacs
 Save buffer with ctrl-s
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-s") 'save-buffer)
+#+END_SRC
+* Babel
+** Dont ask for confirmation
+#+BEGIN_SRC emacs-lisp
+(setq org-confirm-babel-evaluate nil)
+#+END_SRC
+** Enable Graphviz
+#+BEGIN_SRC emacs-lisp
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((dot . t))) ; this line activates dot
 #+END_SRC
