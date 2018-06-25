@@ -253,7 +253,7 @@ Publishing project
 #+END_SRC
 ** Agenda files
 #+BEGIN_SRC emacs-lisp
-(setq org-agenda-files '("~/Documents/orgMode"))
+(setq org-agenda-files '("~/Documents/Presentation/Abhirami/orgMode"))
 #+END_SRC
 ** For embedding image as base64
 This function will help in embedding image in base64 format
@@ -509,8 +509,8 @@ prevent company from completing on its own when we type Space or dot
 (use-package company
   :diminish company-mode
   :ensure t
+  :init (global-company-mode)
   :config
-  (add-hook 'after-init-hook 'global-company-mode)
   (setq
    company-echo-delay 0
    company-idle-delay 0.2
