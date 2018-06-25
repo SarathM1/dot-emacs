@@ -1,4 +1,7 @@
 config.el
+config.el~
+lisp
+network-security.data
 auto-save-list
 elpa
 recentf*
