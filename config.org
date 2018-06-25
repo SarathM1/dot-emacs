@@ -654,8 +654,13 @@ The non-mu4e-* stuff is inherited from emacs/message-mode
 (setq mu4e-reply-to-address "sarath.m@tataelxsi.co.in"
       user-mail-address "sarath.m@tataelxsi.co.in"
       user-full-name  "Sarath.M")
-(setq mu4e-compose-signature
-   "Sarath.M\nSenior Engineer\nTata Elxsi")
+(setq mail-signature
+    "Thanks & Regards
+Sarath M
+Senior Engineer - JLR TML
+TATA ELXSI
+Techno Park Campus, Kariyavattom,  Trivandrum  Kerala 695 581
+Cell +91 9496354518")
 #+END_SRC
 *** Kill message buffers on exit
 #+BEGIN_SRC emacs-lisp
