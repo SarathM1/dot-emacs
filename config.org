@@ -58,11 +58,10 @@ Show current column:
 (setq column-number-mode t)
 #+END_SRC
 
-Cursor settings:
+
+Disable scroll-bar
 #+BEGIN_SRC emacs-lisp
-;; Prevent the cursor from blinking
-(blink-cursor-mode 0)
-(set-cursor-color "IndianRed")
+(toggle-scroll-bar -1)
 #+END_SRC
 
 Flat mode-line styling:
@@ -75,6 +74,13 @@ Flat mode-line styling:
 My favorite dark themes: wombat, misterioso, zenburn, material
 #+BEGIN_SRC emacs-lisp
 (load-theme 'wombat t) ;; dark theme
+#+END_SRC
+
+Cursor settings:
+#+BEGIN_SRC emacs-lisp
+;; Prevent the cursor from blinking
+(blink-cursor-mode 0)
+(set-cursor-color "IndianRed")
 #+END_SRC
 ** Font
  #+BEGIN_SRC emacs-lisp
@@ -249,6 +255,27 @@ Publishing project
 #+BEGIN_SRC emacs-lisp
 (setq org-agenda-files '("~/Documents/orgMode"))
 #+END_SRC
+** For embedding image as base64
+This function will help in embedding image in base64 format
+within the html file
+#+BEGIN_SRC emacs-lisp
+(defun tob64 (filename)
+  (base64-encode-string
+   (with-temp-buffer
+     (insert-file-contents filename)
+     (buffer-string))))
+#+END_SRC
+
+Now in the org file add image as below; Remove the extra '#'
+
+##+BEGIN_SRC emacs-lisp :results html :exports results
+(format "<img src=\"data:image/png;base64,%s\">"
+    (tob64 "~/Pictures/test3.jpg"))
+##+END_SRC
+** org-babel settings
+#+BEGIN_SRC emacs-lisp
+(setq org-confirm-babel-evaluate nil)
+#+END_SRC
 * Packages
 ** Evil mode
 
@@ -298,7 +325,7 @@ Evil mode
 )
 #+END_SRC
 
-** nyan-mode - Nyan Cat instead of scroll bar
+** DISABLED nyan-mode - Nyan Cat instead of scroll bar
 
 «[[https://github.com/TeMPOraL/nyan-mode/][Nyan Mode]] is an analog indicator of your position in the buffer. The
 Cat should go from left to right in your mode-line, as you move your
@@ -312,10 +339,6 @@ space is limited but vertical space not. By disabling the scroll bar
 for Emacs (see further above) and using the Nyan cat as a replacement
 for it, I can save precious horizontal space.
 
-Disable scroll-bar
-#+BEGIN_SRC emacs-lisp
-(toggle-scroll-bar -1)
-#+END_SRC
 
 #+BEGIN_SRC emacs-lisp
 (use-package nyan-mode
@@ -476,6 +499,12 @@ Magit for git revision control
 Modular in-buffer completion framework for Emacs
 [[http://company-mode.github.io/][Reference]]
 
+prevent company from completing on its own when we type Space or dot
+#+BEGIN_SRC emacs-lisp
+(defun company--my-insert-spc() (interactive) (company-abort)(insert-char #10r32))
+(defun company--my-insert-dot() (interactive) (company-abort)(insert-char #10r46))
+#+END_SRC 
+
 #+BEGIN_SRC emacs-lisp
 (use-package company
   :diminish company-mode
@@ -485,7 +514,7 @@ Modular in-buffer completion framework for Emacs
   (setq
    company-echo-delay 0
    company-idle-delay 0.2
-   company-minimum-prefix-length 1
+   company-minimum-prefix-length 3
    company-tooltip-align-annotations t
    company-tooltip-limit 20)
   ;; Default colors are awful - borrowed these from gocode (thanks!):
@@ -501,7 +530,15 @@ Modular in-buffer completion framework for Emacs
   (set-face-attribute
    'company-tooltip-common nil :foreground "darkgreen" :weight 'bold)
   (set-face-attribute
-   'company-tooltip-common-selection nil :foreground "black" :weight 'bold))
+   'company-tooltip-common-selection nil :foreground "black" :weight 'bold)
+  :bind
+  (:map company-active-map
+   ("ESC" . company-abort)
+   ;; prevent company from completing on its own when we type regular characters
+   ("SPC" . company--my-insert-spc)
+   ("."   . company--my-insert-dot)
+   )
+  )
 #+END_SRC
 ** dashboard
 #+BEGIN_SRC emacs-lisp
@@ -513,6 +550,130 @@ Modular in-buffer completion framework for Emacs
     (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
     ;; Set the banner
     (setq dashboard-startup-banner 3))
+#+END_SRC
+** htmlize
+#+BEGIN_SRC emacs-lisp
+(use-package htmlize
+  :ensure t
+  :commands (htmlize-buffer
+             htmlize-file
+             htmlize-many-files
+             htmlize-many-files-dired
+             htmlize-region))
+#+END_SRC
+** mu4e
+- Dependencies
+	- libtool
+	- automake
+	- autoconf
+
+- Reference
+	- [[https://www.djcbsoftware.nl/code/mu/mu4e/Installation.html][mu4e]]
+	- [[https://ryanmcconville.com/blog/post/offlineimap-with-outlook365/][offlineimap-office365]]
+	- [[http://prodissues.com/2016/02/adding-mu4e-support-to-emacs.html][mu4e, tutorial]]
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+(setq mu4e-mu-binary (executable-find "/usr/local/bin/mu"))
+(require 'mu4e)
+
+;; default
+(setq mu4e-maildir "~/Mail/sm")
+;;(setq mu4e-drafts-folder "/[Gmail].Drafts")
+;;(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+;;(setq mu4e-trash-folder  "/[Gmail].Trash")
+;;(setq mu4e-refile-folder  "/[Gmail].All Mail")
+
+;; (See the documentation for `mu4e-sent-messages-behavior' if you have
+;; additional non-Gmail addresses and want assign them different
+;; behavior.)
+
+;; setup some handy shortcuts
+;; you can quickly switch to your Inbox -- press ``ji''
+;; then, when you want archive some messages, move them to
+;; the 'All Mail' folder by pressing ``ma''.
+
+(setq mu4e-maildir-shortcuts
+    '( ("/INBOX"               . ?i)
+       ("/[Gmail].Sent Mail"   . ?s)
+       ("/[Gmail].Trash"       . ?t)
+       ("/[Gmail].All Mail"    . ?a)))
+
+;; allow for updating mail using 'U' in the main view:
+(setq mu4e-get-mail-command "offlineimap")
+#+END_SRC
+*** offlineimaprc
+#+BEGIN_SRC
+# Sample minimal config file.  Copy this to ~/.offlineimaprc and edit to
+# get started fast.
+
+[general]
+accounts = Test
+pythonfile = ~/.offlineimap.py
+
+[Account Test]
+localrepository = Local
+remoterepository = Remote
+maxage=2
+
+[Repository Local]
+type = Maildir
+localfolders = ~/Mail/sm
+
+[Repository Remote]
+type = IMAP
+remoteuser = sarath.m@tataelxsi.co.in
+remotepasseval = mailpasswd('pwd')
+remotehost = outlook.office365.com
+remoteport = 993
+realdelete = no
+folderfilter = lambda folder: folder in ['INBOX', 'Sent', 'Sent Items']
+## Try one of the following for Ubuntu or Arch:
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+# sslcacertfile = OS-DEFAULT
+#+END_SRC
+*** TLS config
+#+BEGIN_SRC emacs-lisp
+(require 'starttls)
+(setq starttls-use-gnutls t)
+#+END_SRC
+*** Outgoing mail settings
+#+BEGIN_SRC emacs-lisp
+(require 'smtpmail)
+(setq send-mail-function  'smtpmail-send-it
+      message-send-mail-function    'smtpmail-send-it
+      smtpmail-auth-credentials     (expand-file-name "~/.authinfo")
+      smtpmail-smtp-server  "smtp.office365.com"
+      smtpmail-stream-type  'starttls
+      smtpmail-smtp-service 587)
+#+END_SRC
+*** Default mail settings
+general emacs mail settings; used when composing e-mail.
+The non-mu4e-* stuff is inherited from emacs/message-mode
+#+BEGIN_SRC emacs-lisp
+(setq mu4e-reply-to-address "sarath.m@tataelxsi.co.in"
+      user-mail-address "sarath.m@tataelxsi.co.in"
+      user-full-name  "Sarath.M")
+(setq mu4e-compose-signature
+   "Sarath.M\nSenior Engineer\nTata Elxsi")
+#+END_SRC
+*** Kill message buffers on exit
+#+BEGIN_SRC emacs-lisp
+(setq message-kill-buffer-on-exit t)
+#+END_SRC
+*** Encrypt OfflineIMAP and msmtp password with GnuPG
+- [[http://f-koehler.github.io/posts/2015-03-17-offlineimap-msmtp-gnupg.html][Reference]]
+1. Put this code in home folder
+#+BEGIN_SRC python
+  import subprocess                                                             
+                                                                                
+  def mailpasswd():                                                             
+      path = "/home/sm/.mail_pwd.gpg"                                           
+      return subprocess.check_output(["gpg2", "--quiet", "--batch", "-d",       
+  path]).strip()                                                                
+
+  if __name__ == '__main__':                                                    
+      mailpasswd() 
 #+END_SRC
 * Key bindings
 
