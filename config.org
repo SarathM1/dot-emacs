@@ -276,6 +276,26 @@ Now in the org file add image as below; Remove the extra '#'
 #+BEGIN_SRC emacs-lisp
 (setq org-confirm-babel-evaluate nil)
 #+END_SRC
+** Capture templates
+#+BEGIN_SRC emacs-lisp :tangle no
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/Documents/RUBE/trunk/Project Management/Tasks/tasks.org" "Tasks")
+              "* TODO %?\n  %i\n ")
+      ("j" "Journal" entry (file+olp+datetree "~/org/journal.org")
+          "* %?\nEntered on %U\n  %i\n  %a")))
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+(setq org-capture-templates '((
+     "t"                ; key
+     "Todo"             ; description
+     entry              ; type
+     (file+headline "~/Documents/RUBE/trunk/Project Management/Tasks/tasks.org" "Tasks")       ; target
+     "* TODO [#B] %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?"  ; template
+     :prepend t        ; properties
+     :empty-lines 1    ; properties
+     :created t        ; properties
+     )))
+#+END_SRC
 * Packages
 ** Evil mode
 
@@ -709,10 +729,25 @@ Cell +91 9496354518")
 5. Done
 - To update password use GNU *pass*
 * Key bindings
-
-Save buffer with ctrl-s
+** Save buffer with ctrl-s
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-s") 'save-buffer)
+#+END_SRC
+** org-capture
+#+BEGIN_SRC emacs-lisp
+(global-set-key [f4] 'org-capture)
+#+END_SRC
+** init file
+#+BEGIN_SRC emacs-lisp
+(defun open-my-init-file()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+(defun open-my-init-org-file()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+
+(global-set-key (kbd "<f2>") 'open-my-init-file)
+(global-set-key (kbd "<f3>") 'open-my-init-org-file)
 #+END_SRC
 * Babel
 ** Dont ask for confirmation
