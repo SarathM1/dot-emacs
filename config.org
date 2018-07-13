@@ -759,6 +759,17 @@ Cell +91 9496354518")
    #+END_SRC
 5. Done
 - To update password use GNU *pass*
+** beacon mode
+This package highlights the cursor every time it jumps abruptedly from a
+place to another (e.g. when changing windows and so on).
+#+BEGIN_SRC emacs-lisp
+(use-package beacon
+  :ensure t
+  :defer 2
+  :diminish beacon-mode
+  :config
+(beacon-mode 1))
+#+END_SRC
 * Key bindings
 ** Save buffer with ctrl-s
 #+BEGIN_SRC emacs-lisp
