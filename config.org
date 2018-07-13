@@ -481,7 +481,7 @@ Magit for git revision control
   :commands magit-get-top-dir
 )
 #+END_SRC
-** DISABLED rainbow-delimiters
+** rainbow-delimiters
 [[https://github.com/Fanael/rainbow-delimiters][rainbow-delimiters]]; colour macthing parenthesis
 #+BEGIN_SRC emacs-lisp
 (use-package rainbow-delimiters
