@@ -27,6 +27,7 @@ Backup files
 #+BEGIN_SRC emacs-lisp
 (setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
+(setq python-indent 4)
 #+END_SRC
 ** Package Manager
 Configure the package manager of my GNU/Emacs.
