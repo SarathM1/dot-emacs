@@ -523,6 +523,20 @@ Project management.
   :config
 (projectile-global-mode))
 #+END_SRC
+** DISABLED guide-key
+ Shows a popup with all the possible key bindings that would complete the
+ started binding.
+#+BEGIN_SRC emacs-lisp
+(use-package guide-key
+  :ensure t
+  :defer 4
+  :diminish guide-key-mode
+  :config
+    (progn
+        (setq guide-key/guide-key-sequence t)
+        (setq guide-key/idle-delay 0.4)
+    (guide-key-mode 1)))
+#+END_SRC
 ** company-mode
 Modular in-buffer completion framework for Emacs
 [[http://company-mode.github.io/][Reference]]
