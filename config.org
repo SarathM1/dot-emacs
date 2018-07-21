@@ -6,7 +6,7 @@
 
 * General settings
 inhibit the startup screen
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-screen t)
 #+END_SRC
 
