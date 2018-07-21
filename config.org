@@ -427,7 +427,6 @@ flexible, simple tools for minibuffer completion in Emacs
 
 (use-package swiper
   :ensure t
-  :bind ("C-S-f" . swiper)
   :config
   (setq ivy-display-style 'fancy) ;; fancy highlighting
   )
