@@ -6,5 +6,10 @@ auto-save-list
 elpa
 recentf*
 /init.el~
+<<<<<<< HEAD
 /eshell/history
 /eshell/lastdir
+=======
+/projectile-bookmarks.eld
+/projectile.cache
+>>>>>>> 206ebfc2cebc03650538fa587a314d7ddf96d59f

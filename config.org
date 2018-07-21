@@ -15,10 +15,19 @@ disable toolbar
 (tool-bar-mode -1)
 #+END_SRC
 
+Backup files
+#+BEGIN_SRC emacs-lisp
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+#+END_SRC
+
 ** Default Indentation
 #+BEGIN_SRC emacs-lisp
 (setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
+(setq python-indent 4)
 #+END_SRC
 ** Package Manager
 Configure the package manager of my GNU/Emacs.
@@ -494,7 +503,7 @@ Magit for git revision control
   :commands magit-get-top-dir
 )
 #+END_SRC
-** DISABLED rainbow-delimiters
+** rainbow-delimiters
 [[https://github.com/Fanael/rainbow-delimiters][rainbow-delimiters]]; colour macthing parenthesis
 #+BEGIN_SRC emacs-lisp
 (use-package rainbow-delimiters
@@ -518,15 +527,37 @@ Magit for git revision control
         ("C-x C-f" . helm-find-files)
         ("C-x f" . helm-recentf)
         ("C-SPC" . helm-dabbrev))
- :bind (:map helm-map
-	      ("M-i" . helm-previous-line)
-	      ("M-k" . helm-next-line)
-	      ("M-I" . helm-previous-page)
-	      ("M-K" . helm-next-page)
-	      ("M-h" . helm-beginning-of-buffer)
-	      ("M-H" . helm-end-of-buffer))
  :config (progn
 	    (helm-mode 1)))
+#+END_SRC
+*** Helm-projectile
+Project management.
+#+BEGIN_SRC emacs-lisp
+(use-package projectile
+  :ensure t
+  :commands (projectile-find-file projectile-switch-project)
+  :diminish projectile-mode
+  :init
+  (use-package helm-projectile
+    :ensure t
+    :bind (("M-p" . helm-projectile-find-file)
+           ("M-P" . helm-projectile-switch-project)))
+  :config
+(projectile-global-mode))
+#+END_SRC
+** DISABLED guide-key
+ Shows a popup with all the possible key bindings that would complete the
+ started binding.
+#+BEGIN_SRC emacs-lisp
+(use-package guide-key
+  :ensure t
+  :defer 4
+  :diminish guide-key-mode
+  :config
+    (progn
+        (setq guide-key/guide-key-sequence t)
+        (setq guide-key/idle-delay 0.4)
+    (guide-key-mode 1)))
 #+END_SRC
 ** company-mode
 Modular in-buffer completion framework for Emacs
@@ -741,6 +772,17 @@ Cell +91 9496354518")
    #+END_SRC
 5. Done
 - To update password use GNU *pass*
+** beacon mode
+This package highlights the cursor every time it jumps abruptedly from a
+place to another (e.g. when changing windows and so on).
+#+BEGIN_SRC emacs-lisp
+(use-package beacon
+  :ensure t
+  :defer 2
+  :diminish beacon-mode
+  :config
+(beacon-mode 1))
+#+END_SRC
 * Key bindings
 ** Save buffer with ctrl-s
 #+BEGIN_SRC emacs-lisp
@@ -757,7 +799,7 @@ Cell +91 9496354518")
   (find-file "~/.emacs.d/init.el"))
 (defun open-my-init-org-file()
   (interactive)
-  (find-file "~/.emacs.d/init.el"))
+  (find-file "~/.emacs.d/config.org"))
 
 (global-set-key (kbd "<f2>") 'open-my-init-file)
 (global-set-key (kbd "<f3>") 'open-my-init-org-file)
