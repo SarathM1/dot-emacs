@@ -788,6 +788,21 @@ place to another (e.g. when changing windows and so on).
   :config
 (beacon-mode 1))
 #+END_SRC
+** evil-terminal-cursor-changer
+Change terminal color and shape while using emacs in terminal
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-terminal-cursor-changer
+      :ensure t
+      :defer 2
+      :config
+      (evil-terminal-cursor-changer-activate)
+       (setq evil-motion-state-cursor 'box)  ; █
+       (setq evil-visual-state-cursor 'hbar) ; _
+       (setq evil-normal-state-cursor 'box)  ; █
+       (setq evil-insert-state-cursor 'bar)  ; ⎸
+       (setq evil-emacs-state-cursor  'bar)  ; ⎸
+  )
+#+END_SRC
 * Key bindings
 ** Save buffer with ctrl-s
 #+BEGIN_SRC emacs-lisp
