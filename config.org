@@ -299,6 +299,8 @@ Evil-leader keyboard bindings
   (evil-leader/set-key
     ","  'other-window
     "."  'mode-line-other-buffer
+    ";"  'elpy-goto-definition
+    "'"  'pop-tag-mark
     "b"  'helm-mini             ;; Switch to another buffer
     "c"  'comment-dwim
     "d"  'helm-imenu            ;; Jump to function in buffer
@@ -762,6 +764,18 @@ Change terminal color and shape while using emacs in terminal
        (setq evil-insert-state-cursor 'bar)  ; ⎸
        (setq evil-emacs-state-cursor  'bar)  ; ⎸
   )
+#+END_SRC
+** elpy
+#+BEGIN_SRC emacs-lisp
+(use-package python
+  :ensure t
+  :defer t
+  :mode ("\\.py\\'" . python-mode))
+
+(use-package elpy
+  :ensure t
+  :after python
+  :config (elpy-enable))
 #+END_SRC
 * Babel
 ** Dont ask for confirmation
