@@ -5,17 +5,22 @@
 #+STARTUP: indent
 
 * General settings
-inhibit the startup screen
+** inhibit the startup screen
 #+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-screen t)
 #+END_SRC
 
-disable toolbar
+** disable toolbar
 #+BEGIN_SRC emacs-lisp
 (tool-bar-mode -1)
 #+END_SRC
 
-Backup files
+** disable menubar
+#+BEGIN_SRC emacs-lisp
+(menu-bar-mode -1)
+#+END_SRC
+
+** Backup files
 #+BEGIN_SRC emacs-lisp
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
