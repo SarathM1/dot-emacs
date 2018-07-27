@@ -845,7 +845,7 @@ Cursor settings:
 ** Font
  #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'default nil
-		    :family "SauceCodePro"
+		    :family "Source Code Pro"
 		    :height 160
 		    :weight 'normal
 :width 'normal) 
