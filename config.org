@@ -5,15 +5,21 @@
 #+STARTUP: indent
 
 * General settings
-inhibit the startup screen
-#+BEGIN_SRC emacs-lisp :tangle no
+** inhibit the startup screen
+#+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-screen t)
 #+END_SRC
 
-disable toolbar
+** disable toolbar
 #+BEGIN_SRC emacs-lisp
 (tool-bar-mode -1)
 #+END_SRC
+
+** disable menubar
+#+BEGIN_SRC emacs-lisp
+(menu-bar-mode -1)
+#+END_SRC
+
 
 Backup files
 #+BEGIN_SRC emacs-lisp
@@ -32,24 +38,24 @@ Backup files
 ** Package Manager
 Configure the package manager of my GNU/Emacs.
 #+BEGIN_SRC emacs-lisp
-(require 'package)
-(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                    (not (gnutls-available-p))))
-       (proto (if no-ssl "http" "https")))
-  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
-  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
-  (when (< emacs-major-version 24)
-    ;; For important compatibility libraries like cl-lib
-    (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
-(package-initialize)
+  (require 'package)
+  (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                      (not (gnutls-available-p))))
+         (proto (if no-ssl "http" "https")))
+    ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
+    (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+    (add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+    (when (< emacs-major-version 24)
+      ;; For important compatibility libraries like cl-lib
+      (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
+  (package-initialize)
 
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
 
-(eval-when-compile
-  (require 'use-package))
+  (eval-when-compile
+    (require 'use-package))
 #+END_SRC
 * DISABLED Server mode
 
@@ -99,7 +105,7 @@ Cursor settings:
 		    :weight 'normal
 :width 'normal) 
  #+END_SRC
-* Flycheck
+* DISABLED Flycheck
 
 «[[http://www.flycheck.org/][Flycheck]] is a modern on-the-fly syntax checking extension for GNU
 Emacs, intended as replacement for the older Flymake extension which
@@ -262,7 +268,7 @@ Publishing project
 #+END_SRC
 ** Agenda files
 #+BEGIN_SRC emacs-lisp
-(setq org-agenda-files '("~/Documents/Presentation/Abhirami/orgMode"))
+(setq org-agenda-files '("~/Documents/RUBE/trunk/Project Management/Tasks"))
 #+END_SRC
 ** For embedding image as base64
 This function will help in embedding image in base64 format
