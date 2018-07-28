@@ -247,6 +247,8 @@ or so.
 (use-package htmlize
 :ensure t)
 #+END_SRC
+*** DISABLED Pandoc-mode
+[[http://joostkremers.github.io/pandoc-mode/][pandoc-mode]]
 ** Agenda files
 #+BEGIN_SRC emacs-lisp
 (setq org-agenda-files '("~/Documents/RUBE/trunk/Project Management/Tasks"))
