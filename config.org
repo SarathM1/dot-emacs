@@ -292,52 +292,22 @@ Now in the org file add image as below; Remove the extra '#'
 #+END_SRC
 * Packages
 ** Evil mode
-
-[[https://github.com/cofi/evil-leader][evil-leader]]: easly configure key bindings based on leader key
 [[https://github.com/timcharper/evil-surround][evil-surround]]: same functionality as surround.vim
-
-Evil-leader keyboard bindings
+*** Evil mode
 #+BEGIN_SRC emacs-lisp
-(defun my-config-evil-leader ()
-  "Configure evil leader mode."
-  (evil-leader/set-leader ",")
-  (evil-leader/set-key
-    ","  'other-window
-    "."  'mode-line-other-buffer
-    ";"  'elpy-goto-definition
-    "'"  'pop-tag-mark
-    "b"  'helm-mini             ;; Switch to another buffer
-    "c"  'comment-dwim
-    "d"  'helm-imenu            ;; Jump to function in buffer
-    "g"  'magit-status
-    "p"  'helm-show-kill-ring
-    "/"  'swiper            ;; Ag search from project's root
-    ;; "y" 'yank-to-x-clipboard
-    "o"  'delete-other-windows  ;; C-w o
-    "m"  'my-org-publish-buffer
-    ))
-#+END_SRC
-
-Evil mode
-#+BEGIN_SRC emacs-lisp
-(use-package evil
-  :ensure t
-  :config
-  (evil-mode 1)
-  (use-package evil-leader
+  (use-package evil
     :ensure t
     :config
-    (global-evil-leader-mode)
-    (my-config-evil-leader))
+    (evil-mode 1)
 
-  (use-package evil-surround
-    :ensure t
-    :config
-    (global-evil-surround-mode))
+    (use-package evil-surround
+      :ensure t
+      :config
+      (global-evil-surround-mode))
 
-  (use-package evil-indent-textobject
-    :ensure t)
-)
+    (use-package evil-indent-textobject
+      :ensure t)
+  )
 #+END_SRC
 
 ** DISABLED nyan-mode - Nyan Cat instead of scroll bar
@@ -780,7 +750,25 @@ Change terminal color and shape while using emacs in terminal
 (use-package elpy
   :ensure t
   :after python
-  :config (elpy-enable))
+  :config 
+    (elpy-enable)
+    (elpy-use-ipython)
+)
+#+END_SRC
+** yafolding
+#+BEGIN_SRC emacs-lisp
+(use-package yafolding
+  :config
+  (progn
+    (setq yafolding-ellipsis-content " ... ")
+    ))
+#+END_SRC
+** general
+*** For easy defenition of key-bindings
+#+BEGIN_SRC emacs-lisp
+(use-package general
+:ensure t
+:config (general-evil-setup t))
 #+END_SRC
 * Babel
 ** Dont ask for confirmation
@@ -814,44 +802,59 @@ Change terminal color and shape while using emacs in terminal
 (global-set-key (kbd "<f2>") 'open-my-init-file)
 (global-set-key (kbd "<f3>") 'open-my-init-org-file)
 #+END_SRC
+** Key bindings using General.el
+#+BEGIN_SRC emacs-lisp
+(nvmap :prefix "SPC"
+       "tt" 'yafolding-toggle-all
+       "te" 'yafolding-toggle-element)
+
+;; all keywords arguments are still supported
+(nvmap :prefix ","
+       ","  'other-window
+       "."  'mode-line-other-buffer
+       ";"  'elpy-goto-definition
+       "'"  'pop-tag-mark
+       "b"  'helm-mini             ;; Switch to another buffer
+       "c"  'comment-dwim
+       "d"  'helm-imenu            ;; Jump to function in buffer
+       "g"  'magit-status
+       "p"  'helm-show-kill-ring
+       "/"  'swiper            ;; Ag search from project's root
+       ;; "y" 'yank-to-x-clipboard
+       "o"  'delete-other-windows  ;; C-w o
+       "m"  'my-org-publish-buffer
+)
+#+END_SRC
 * Styling
-Show current column:
+** Show current column:
 #+BEGIN_SRC emacs-lisp
 (setq column-number-mode t)
 #+END_SRC
-
-
-Disable scroll-bar
+** Disable scroll-bar
 #+BEGIN_SRC emacs-lisp
 (toggle-scroll-bar -1)
 #+END_SRC
-
-Flat mode-line styling:
-2014-05-24: from http://www.reddit.com/r/emacs/comments/23l9oi/flat_modeline/
+** Flat mode-line styling:
+*** 2014-05-24: from http://www.reddit.com/r/emacs/comments/23l9oi/flat_modeline/
 #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'mode-line nil :box nil)
 (set-face-attribute 'mode-line-inactive nil :box nil)
 #+END_SRC
-
-My favorite dark themes: wombat, misterioso, zenburn, material
+** My favorite dark themes: wombat, misterioso, zenburn, material
 #+BEGIN_SRC emacs-lisp
 (load-theme 'wombat t) ;; dark theme
 #+END_SRC
-
-Cursor settings:
+** Cursor settings:
 #+BEGIN_SRC emacs-lisp
 ;; Prevent the cursor from blinking
 (blink-cursor-mode 0)
 (set-cursor-color "IndianRed")
 #+END_SRC
-
-#+RESULTS:
-
 ** Font
  #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'default nil
 		    :family "Source Code Pro"
-		    :height 160
+		    :height 140
 		    :weight 'normal
 :width 'normal) 
  #+END_SRC
