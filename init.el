@@ -133,13 +133,14 @@ Note the weekly scope of the command's precision.")
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-agenda-files nil)
  '(org-contacts-address-property "CITY" t)
  '(org-contacts-birthday-property "BORN" t)
  '(org-contacts-files "~/share/all/org-mode/contacts.org" t)
  '(org-contacts-icon-property "PHOTOGRAPH" t)
  '(package-selected-packages
    (quote
-    (pandoc-mode auto-complete guide-key hydra yasnippet buttercup yankpad yafolding wttrin use-package unicode-fonts undo-tree synonyms suggest spray smeargle smart-mode-line scss-mode restclient request-deferred ox-reveal ox-pandoc ox-clip ox-asciidoc org-table-sticky-header org-bullets nyan-mode neotree mode-icons markdown-mode magit json-mode highlight-symbol helm gnuplot git-timemachine flycheck eno elpy counsel char-menu bm anzu alert adoc-mode)))
+    (org-mind-map highlight-indent-guides noctilux-theme darktooth-theme cyberpunk-theme zenburn-theme material-theme material pandoc-mode auto-complete guide-key hydra yasnippet buttercup yankpad yafolding wttrin use-package unicode-fonts undo-tree synonyms suggest spray smeargle smart-mode-line scss-mode restclient request-deferred ox-reveal ox-pandoc ox-clip ox-asciidoc org-table-sticky-header org-bullets nyan-mode neotree mode-icons markdown-mode magit json-mode highlight-symbol helm gnuplot git-timemachine flycheck eno elpy counsel char-menu bm anzu alert adoc-mode)))
  '(safe-local-variable-values
    (quote
     ((epa-file-encrypt-to nil)
