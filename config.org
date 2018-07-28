@@ -835,12 +835,6 @@ Change terminal color and shape while using emacs in terminal
 #+BEGIN_SRC emacs-lisp
 (toggle-scroll-bar -1)
 #+END_SRC
-** Flat mode-line styling:
-*** 2014-05-24: from http://www.reddit.com/r/emacs/comments/23l9oi/flat_modeline/
-#+BEGIN_SRC emacs-lisp
-(set-face-attribute 'mode-line nil :box nil)
-(set-face-attribute 'mode-line-inactive nil :box nil)
-#+END_SRC
 ** My favorite dark themes: wombat, misterioso, zenburn, material
 #+BEGIN_SRC emacs-lisp
 (load-theme 'wombat t) ;; dark theme
