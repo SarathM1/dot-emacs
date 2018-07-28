@@ -754,6 +754,7 @@ Change terminal color and shape while using emacs in terminal
     (elpy-enable)
     (setq python-shell-interpreter "ipython2"
     python-shell-interpreter-args "-i --simple-prompt")
+    (delete `elpy-module-highlight-indentation elpy-modules)
 )
 #+END_SRC
 ** yafolding
@@ -771,6 +772,18 @@ Change terminal color and shape while using emacs in terminal
 :ensure t
 :config (general-evil-setup t))
 #+END_SRC
+** highlight-indent-guide
+#+BEGIN_SRC emacs-lisp
+(use-package highlight-indent-guides
+  :config
+  :ensure t
+  :config
+  (setq highlight-indent-guides-method 'character)
+  ;; Indent character samples: | ┆ ┊
+  (setq highlight-indent-guides-character ?\┊)
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
+#+END_SRC
+
 * Babel
 ** Dont ask for confirmation
 #+BEGIN_SRC emacs-lisp
