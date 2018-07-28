@@ -71,11 +71,11 @@ Configure the package manager of my GNU/Emacs.
   #+BEGIN_SRC emacs-lisp
   (server-start)
   #+END_SRC
-* DISABLED Flycheck
+* Flycheck
 
-«[[http://www.flycheck.org/][Flycheck]] is a modern on-the-fly syntax checking extension for GNU
+[[http://www.flycheck.org/][Flycheck]] is a modern on-the-fly syntax checking extension for GNU
 Emacs, intended as replacement for the older Flymake extension which
-is part of GNU Emacs.»
+is part of GNU Emacs.
 
 - http://www.flycheck.org/en/latest/guide/quickstart.html
 - 2016-11-05: converted to use-package according to http://www.flycheck.org/en/latest/user/installation.html#use-package
@@ -753,9 +753,10 @@ Change terminal color and shape while using emacs in terminal
   :config 
     (elpy-enable)
     (setq python-shell-interpreter "ipython2"
-    python-shell-interpreter-args "-i --simple-prompt")
-    (delete `elpy-module-highlight-indentation elpy-modules)
-)
+        python-shell-interpreter-args "-i --simple-prompt")
+    (with-eval-after-load 'elpy
+        (remove-hook 'elpy-modules 'elpy-module-flymake)
+        (add-hook 'elpy-mode-hook 'flycheck-mode)))
 #+END_SRC
 ** yafolding
 #+BEGIN_SRC emacs-lisp
