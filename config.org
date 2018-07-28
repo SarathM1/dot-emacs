@@ -835,9 +835,13 @@ Change terminal color and shape while using emacs in terminal
 #+BEGIN_SRC emacs-lisp
 (toggle-scroll-bar -1)
 #+END_SRC
-** My favorite dark themes: wombat, misterioso, zenburn, material
+** Emacs Theme
+*** My favorite dark themes: 
+**** noctilux, oceanic-next, cyberpunk, material, wombat
 #+BEGIN_SRC emacs-lisp
-(load-theme 'wombat t) ;; dark theme
+(use-package noctilux-theme
+  :ensure t
+)
 #+END_SRC
 ** Cursor settings:
 #+BEGIN_SRC emacs-lisp
