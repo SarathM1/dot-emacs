@@ -752,7 +752,8 @@ Change terminal color and shape while using emacs in terminal
   :after python
   :config 
     (elpy-enable)
-    (elpy-use-ipython)
+    (setq python-shell-interpreter "ipython2"
+    python-shell-interpreter-args "-i --simple-prompt")
 )
 #+END_SRC
 ** yafolding
