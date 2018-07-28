@@ -56,6 +56,11 @@ Configure the package manager of my GNU/Emacs.
 (eval-when-compile
   (require 'use-package))
 #+END_SRC
+** yes or no
+*** use y/n instead of yes/no
+#+BEGIN_SRC emacs-lisp
+(defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
 * DISABLED Server mode
 
   Start Emacs as a server process: new files can be visited via
