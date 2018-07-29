@@ -787,6 +787,15 @@ Cell +91 9496354518")
     #+END_SRC
 - Aliases will be autocompleted on typing comma
 - To seperate several mail id's use comma.
+*** Mail images
+#+BEGIN_SRC emacs-lisp
+;; show images
+(setq mu4e-show-images t)
+
+;; use imagemagick, if available
+(when (fboundp 'imagemagick-register-types)
+  (imagemagick-register-types))
+#+END_SRC
 ** beacon mode
 This package highlights the cursor every time it jumps abruptedly from a
 place to another (e.g. when changing windows and so on).
