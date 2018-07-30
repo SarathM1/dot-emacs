@@ -586,40 +586,41 @@ prevent company from completing on its own when we type Space or dot
   - [[https://wiki.archlinux.org/index.php/Pass][Pass; Password Management]]
 
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
-(setq mu4e-mu-binary (executable-find "/usr/local/bin/mu"))
-(require 'mu4e)
+  (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
+  (setq mu4e-mu-binary (executable-find "/usr/bin/mu"))
+  (require 'mu4e)
 
-;; default
-(setq mu4e-maildir "~/mail/work")
-;;(setq mu4e-drafts-folder "/[Gmail].Drafts")
-;;(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-;;(setq mu4e-trash-folder  "/[Gmail].Trash")
-;;(setq mu4e-refile-folder  "/[Gmail].All Mail")
+  ;; default
+  (setq mu4e-maildir "~/mail/work")
+  (setq mu4e-drafts-folder "/work/Drafts")
+  ;;(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+  (setq mu4e-sent-folder "/work/Sent Mail")
+  ;;(setq mu4e-trash-folder  "/[Gmail].Trash")
+  ;;(setq mu4e-refile-folder  "/[Gmail].All Mail")
 
-;; (See the documentation for `mu4e-sent-messages-behavior' if you have
-;; additional non-Gmail addresses and want assign them different
-;; behavior.)
+  ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
+  ;; additional non-Gmail addresses and want assign them different
+  ;; behavior.)
 
-;; setup some handy shortcuts
-;; you can quickly switch to your Inbox -- press ``ji''
-;; then, when you want archive some messages, move them to
-;; the 'All Mail' folder by pressing ``ma''.
+  ;; setup some handy shortcuts
+  ;; you can quickly switch to your Inbox -- press ``ji''
+  ;; then, when you want archive some messages, move them to
+  ;; the 'All Mail' folder by pressing ``ma''.
 
-(setq mu4e-maildir-shortcuts
-    '( ("/INBOX"               . ?i)
-       ("/[Gmail].Sent Mail"   . ?s)
-       ("/[Gmail].Trash"       . ?t)
-       ("/[Gmail].All Mail"    . ?a)))
+  (setq mu4e-maildir-shortcuts
+      '( ("/INBOX"               . ?i)
+         ("/[Gmail].Sent Mail"   . ?s)
+         ("/[Gmail].Trash"       . ?t)
+         ("/[Gmail].All Mail"    . ?a)))
 
-;;rename files when moving
-;;NEEDED FOR MBSYNC
-(setq mu4e-change-filenames-when-moving t)
+  ;;rename files when moving
+  ;;NEEDED FOR MBSYNC
+  (setq mu4e-change-filenames-when-moving t)
 
-;;set up queue for offline email
-;;use mu mkdir  ~/Maildir/queue to set up first
-(setq smtpmail-queue-mail nil  ;; start in normal mode
-      smtpmail-queue-dir   "~/mail/work/queue/cur")
+  ;;set up queue for offline email
+  ;;use mu mkdir  ~/Maildir/queue to set up first
+  (setq smtpmail-queue-mail nil  ;; start in normal mode
+        smtpmail-queue-dir   "~/mail/work/queue/cur")
 #+END_SRC
 *** offlineimaprc; Use isync/mbsync
 #+BEGIN_SRC
@@ -949,7 +950,7 @@ Change terminal color and shape while using emacs in terminal
  #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'default nil
 		    :family "Source Code Pro"
-		    :height 140
+		    :height 160
 		    :weight 'normal
 :width 'normal) 
  #+END_SRC
