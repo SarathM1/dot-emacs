@@ -572,6 +572,7 @@ prevent company from completing on its own when we type Space or dot
              htmlize-region))
 #+END_SRC
 ** mu4e & mail settings
+*** Main settings
 - Dependencies
   - libtool
   - automake
@@ -621,6 +622,11 @@ prevent company from completing on its own when we type Space or dot
   ;;use mu mkdir  ~/Maildir/queue to set up first
   (setq smtpmail-queue-mail nil  ;; start in normal mode
         smtpmail-queue-dir   "~/mail/work/queue/cur")
+#+END_SRC
+*** Preferences
+**** Quit mu4e without confirmation
+#+BEGIN_SRC emacs-lisp
+(setq mu4e-confirm-quit nil)
 #+END_SRC
 *** offlineimaprc; Use isync/mbsync
 #+BEGIN_SRC
