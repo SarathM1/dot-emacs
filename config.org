@@ -971,3 +971,8 @@ Change terminal color and shape while using emacs in terminal
 		    :weight 'normal
 :width 'normal) 
  #+END_SRC
+* Miscellaneous
+** ROS launch file to xml mode
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.launch\\'" . xml-mode))
+#+END_SRC
