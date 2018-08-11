@@ -61,6 +61,11 @@ Configure the package manager of my GNU/Emacs.
 #+BEGIN_SRC emacs-lisp
 (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
+** line numbers
+#+BEGIN_SRC emacs-lisp
+(setq linum-format "%4d\u2502")
+(add-hook 'prog-mode-hook 'linum-mode)
+#+END_SRC
 * DISABLED Server mode
 
   Start Emacs as a server process: new files can be visited via
