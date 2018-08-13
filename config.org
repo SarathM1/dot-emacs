@@ -599,9 +599,9 @@ prevent company from completing on its own when we type Space or dot
   ;;(setq mu4e-trash-folder  "/[Gmail].Trash")
   ;;(setq mu4e-refile-folder  "/[Gmail].All Mail")
 
-  ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
-  ;; additional non-Gmail addresses and want assign them different
-  ;; behavior.)
+  ;; Change it like below so mu4e moves sent messages into your sent folder. 
+  ;; Unlike Gmail, Office 365 doesn't do this automatically.
+  (setq mu4e-sent-messages-behavior 'sent)
 
   ;; setup some handy shortcuts
   ;; you can quickly switch to your Inbox -- press ``ji''
