@@ -808,7 +808,7 @@ Cell +91 9496354518")
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
 #+END_SRC
-*** mu4e-alert
+*** DISABLED mu4e-alert
 #+BEGIN_SRC emacs-lisp
 (use-package mu4e-alert
     :ensure t
