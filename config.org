@@ -61,6 +61,11 @@ Configure the package manager of my GNU/Emacs.
 #+BEGIN_SRC emacs-lisp
 (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
+** line numbers
+#+BEGIN_SRC emacs-lisp
+(setq linum-format "%4d\u2502")
+(add-hook 'prog-mode-hook 'linum-mode)
+#+END_SRC
 * DISABLED Server mode
 
   Start Emacs as a server process: new files can be visited via
@@ -856,6 +861,10 @@ Change terminal color and shape while using emacs in terminal
         (remove-hook 'elpy-modules 'elpy-module-flymake)
         (add-hook 'elpy-mode-hook 'flycheck-mode)))
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
+#+END_SRC
 ** yafolding
 #+BEGIN_SRC emacs-lisp
 (use-package yafolding
@@ -950,10 +959,13 @@ Change terminal color and shape while using emacs in terminal
 (toggle-scroll-bar -1)
 #+END_SRC
 ** Emacs Theme
-*** My favorite dark themes: 
-**** noctilux, oceanic-next, cyberpunk, material, wombat
+*** My favorite themes: 
+**** Dark themes
+***** noctilux, oceanic-next, cyberpunk, material, wombat
+**** Light themes
+***** leuven
 #+BEGIN_SRC emacs-lisp
-(use-package noctilux-theme
+(use-package leuven-theme
   :ensure t
 )
 #+END_SRC
