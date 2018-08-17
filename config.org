@@ -599,9 +599,8 @@ prevent company from completing on its own when we type Space or dot
   ;; default
   (setq mu4e-maildir "~/mail/work")
   (setq mu4e-drafts-folder "/work/Drafts")
-  ;;(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-  (setq mu4e-sent-folder "/work/Sent Mail")
-  ;;(setq mu4e-trash-folder  "/[Gmail].Trash")
+  (setq mu4e-sent-folder "/Sent Items")
+  (setq mu4e-trash-folder  "/Deleted Items")
   ;;(setq mu4e-refile-folder  "/[Gmail].All Mail")
 
   ;; Change it like below so mu4e moves sent messages into your sent folder. 
@@ -615,9 +614,8 @@ prevent company from completing on its own when we type Space or dot
 
   (setq mu4e-maildir-shortcuts
       '( ("/INBOX"               . ?i)
-         ("/[Gmail].Sent Mail"   . ?s)
-         ("/[Gmail].Trash"       . ?t)
-         ("/[Gmail].All Mail"    . ?a)))
+         ("/Sent Items"   . ?s)
+         ("/Deleted Items"       . ?d)))
 
   ;;rename files when moving
   ;;NEEDED FOR MBSYNC
@@ -781,10 +779,10 @@ The non-mu4e-* stuff is inherited from emacs/message-mode
  last field.  These are the defaults:
 #+BEGIN_SRC emacs-lisp
 (setq mu4e-headers-fields
-    '( (:human-date          .  25)    ;; alternatively, use :human-date
-       (:flags         .   6)
+    '( (:human-date    .  25)    ;; alternatively, use :human-date
+       (:flags         .   3)
        (:from          .  22)
-       (:thread-subject       .  nil))) ;; alternatively, use :thread-subject
+       (:thread-subject .  nil))) ;; alternatively, use :thread-subject
 #+END_SRC
 *** Email Signature
 #+BEGIN_SRC emacs-lisp
