@@ -93,7 +93,7 @@ is part of GNU Emacs.
   (setq flycheck-flake8-maximum-line-length 200); http://www.flycheck.org/manual/latest/Configuring-checkers.html#Configuring-checkers
   )
 #+END_SRC
-* GnuPlot
+* DISABLED GnuPlot
 
 «[[http://www.gnuplot.info/][Gnuplot]] is a portable command-line driven graphing utility for Linux,
 OS/2, MS Windows, OSX, VMS, and many other platforms.»
@@ -965,7 +965,7 @@ Change terminal color and shape while using emacs in terminal
 **** Light themes
 ***** leuven
 #+BEGIN_SRC emacs-lisp
-(use-package leuven-theme
+(use-package cyberpunk-theme
   :ensure t
 )
 #+END_SRC
