@@ -956,6 +956,7 @@ Change terminal color and shape while using emacs in terminal
        "/"  'swiper            ;; Ag search from project's root
        ;; "y" 'yank-to-x-clipboard
        "o"  'delete-other-windows  ;; C-w o
+       "k"  'delete-window  ;; C-w o
 )
 #+END_SRC
 * Styling
