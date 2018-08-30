@@ -199,7 +199,7 @@ in the same directory as the org file.
 had to disable it]]. Maybe I'd give it another try in a couple of months
 or so.
 ** Export plugins
-*** ox-pandoc
+*** DISABLED ox-pandoc
 #+BEGIN_SRC emacs-lisp
 (use-package ox-pandoc
   :defer 1
@@ -598,7 +598,7 @@ prevent company from completing on its own when we type Space or dot
 
   ;; default
   (setq mu4e-maildir "~/mail/work")
-  (setq mu4e-drafts-folder "/work/Drafts")
+  (setq mu4e-drafts-folder "/Drafts")
   (setq mu4e-sent-folder "/Sent Items")
   (setq mu4e-trash-folder  "/Deleted Items")
   ;;(setq mu4e-refile-folder  "/[Gmail].All Mail")
@@ -988,7 +988,7 @@ Change terminal color and shape while using emacs in terminal
  #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'default nil
 		    :family "Source Code Pro"
-		    :height 160
+		    :height 140
 		    :weight 'normal
 :width 'normal) 
  #+END_SRC
