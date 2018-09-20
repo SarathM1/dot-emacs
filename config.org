@@ -275,7 +275,9 @@ Now in the org file add image as below; Remove the extra '#'
      :prepend t        ; properties
      :empty-lines 1    ; properties
      :created t        ; properties
-     )))
+     )
+    ("j" "Journal" entry (file+datetree "~/Documents/RUBE/trunk/Project Management/Tasks/journal.org")
+        "* %?\nEntered on %U\n  %i\n ")))
 #+END_SRC
 * Packages
 ** Evil mode
