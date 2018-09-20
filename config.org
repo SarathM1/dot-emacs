@@ -880,6 +880,18 @@ Change terminal color and shape while using emacs in terminal
   (setq highlight-indent-guides-character ?\┊)
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
 #+END_SRC
+** pdf-tools
+#+BEGIN_SRC emacs-lisp
+(use-package pdf-tools
+:pin manual  ;; Avoid automatic update of pdf-tools
+:ensure t
+:config
+(pdf-tools-install)
+(setq-default pdf-view-display-size 'fit-page)
+(setq pdf-annot-activate-created-annotations t)
+;; use normal isearch
+ (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
+#+END_SRC
 
 * Babel
 ** Dont ask for confirmation
