@@ -176,7 +176,7 @@ Opening image files with external viewer:
 			       ("\\.pptx\\'" . default)
 			       ) org-file-apps ))))
 #+END_SRC
-* Export plugins
+** Export plugins
 *** DISABLED ox-pandoc
 #+BEGIN_SRC emacs-lisp
 (use-package ox-pandoc
