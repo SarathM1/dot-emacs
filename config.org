@@ -213,7 +213,7 @@ Opening image files with external viewer:
                         (file-name-sans-extension rel)
                         ".html"))))
 #+END_SRC
-*** ox-beamer - Beamer export
+*** DISABLED ox-beamer - Beamer export
 #+BEGIN_SRC emacs-lisp
 (setq org-export-backends (quote (
        beamer
@@ -278,6 +278,19 @@ Now in the org file add image as below; Remove the extra '#'
      )
     ("j" "Journal" entry (file+datetree "~/Documents/RUBE/trunk/Project Management/Tasks/journal.org")
         "* %?\nEntered on %U\n  %i\n ")))
+#+END_SRC
+** ox-beamer
+#+BEGIN_SRC emacs-lisp
+(require 'ox-beamer)
+(require 'ox-latex)
+(setq org-export-allow-bind-keywords t)
+(setq org-latex-listings 'minted)
+(add-to-list 'org-latex-packages-alist '("" "minted"))
+(org-babel-do-load-languages 'org-babel-load-languages '((shell . t) (python . t) (C . t) (ruby . t) (js . t)))
+(setq org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 #+END_SRC
 * Packages
 ** Evil mode
