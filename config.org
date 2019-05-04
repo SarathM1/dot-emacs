@@ -643,7 +643,7 @@ Change terminal color and shape while using emacs in terminal
   (setq highlight-indent-guides-character ?\┊)
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
 #+END_SRC
-** pdf-tools
+** DISABLED pdf-tools
 #+BEGIN_SRC emacs-lisp
 (use-package pdf-tools
 :pin manual  ;; Avoid automatic update of pdf-tools
@@ -743,7 +743,7 @@ Change terminal color and shape while using emacs in terminal
  #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'default nil
 		    :family "Source Code Pro"
-		    :height 140
+		    :height 180
 		    :weight 'normal
 :width 'normal) 
  #+END_SRC
