@@ -292,6 +292,10 @@ Now in the org file add image as below; Remove the extra '#'
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 #+END_SRC
+** mactex
+#+BEGIN_SRC emacs-lisp 
+(setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
+#+END_SRC
 * Packages
 ** Evil mode
 [[https://github.com/timcharper/evil-surround][evil-surround]]: same functionality as surround.vim
